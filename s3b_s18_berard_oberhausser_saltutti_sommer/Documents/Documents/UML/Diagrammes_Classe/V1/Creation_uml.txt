@@ -1,0 +1,25 @@
+interface ActionListener
+interface MouseListener
+interface ComponentListener
+
+PanneauCreation --> "1" VueLabyrinthe
+VueLabyrinthe --> "1" Labyrinthe
+
+PanneauCreation --> "1" ControleurTaille
+PanneauCreation --> "1" ControleurClic
+PanneauCreation --> "1" ControleurMode
+PanneauCreation --> "1" ControleurGeneration
+PanneauCreation --> "1" ControleurEchelle
+
+
+ControleurGeneration ..|> ActionListener
+ControleurTaille ..|> ActionListener
+ControleurMode ..|> ActionListener
+ControleurClic ..|> MouseListener
+ControleurEchelle ..|> ComponentListener
+
+ControleurGeneration --> "1" Labyrinthe
+ControleurTaille  --> "1" Labyrinthe
+ControleurMode  --> "1" Labyrinthe
+ControleurClic  --> "1" Labyrinthe
+ControleurEchelle --> "1" Labyrinthe

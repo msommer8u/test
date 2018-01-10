@@ -1,0 +1,11 @@
+abstract Vue
+interface Observer
+
+Vue3D --|> Vue
+VueCapteurs --|> Vue
+VueLabyrinthe --|> Vue
+VueAdjacents --|> Vue
+Vue ..|> Observer
+Vue --|> JPanel
+
+Vue --> "1" Labyrinthe

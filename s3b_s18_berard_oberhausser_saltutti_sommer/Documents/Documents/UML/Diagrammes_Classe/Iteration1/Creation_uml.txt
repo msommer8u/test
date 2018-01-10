@@ -1,0 +1,26 @@
+@startuml
+interface ActionListener
+interface MouseListener
+interface ComponentListener
+
+PanneauCreation --> "1" VueLabyrinthe
+VueLabyrinthe --> "1" Gestionnaire
+
+PanneauCreation --> "1" ControleurTaille
+PanneauCreation --> "1" ControleurClic
+PanneauCreation --> "1" ControleurMode
+PanneauCreation --> "1" ControleurGeneration
+PanneauCreation --> "1" ControleurEchelle
+
+ActionListener <|.. ControleurGeneration
+ActionListener <|.. ControleurTaille
+ActionListener <|.. ControleurMode
+MouseListener <|.. ControleurClic
+ComponentListener <|.. ControleurEchelle
+
+ControleurGeneration --> "1" Gestionnaire
+ControleurTaille  --> "1" Gestionnaire
+ControleurMode  --> "1" Gestionnaire
+ControleurClic  --> "1" Gestionnaire
+ControleurEchelle --> "1" Gestionnaire
+@enduml

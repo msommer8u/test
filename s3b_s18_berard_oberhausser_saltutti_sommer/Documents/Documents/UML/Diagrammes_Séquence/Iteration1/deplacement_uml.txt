@@ -1,0 +1,75 @@
+@startuml
+hide footbox
+actor Prof
+
+Prof -> ControleurDeplacement : keyPressed()
+note left 
+        l'enseignant fait avancer
+        le robot dans l'onglet 
+        localisation
+end note
+activate ControleurDeplacement 
+
+ControleurDeplacement -> Gestionnaire : avancerRobot()
+activate Gestionnaire
+
+Gestionnaire -> Robot : getCaseCourante()
+activate Robot
+Robot --> Gestionnaire : Case c
+deactivate Robot
+
+Gestionnaire -> Robot : getOrientation()
+activate Robot
+Robot --> Gestionnaire : int o
+deactivate Robot
+
+Gestionnaire -> Labyrinthe : etreMouvementValide(c, o)
+activate Labyrinthe
+Labyrinthe --> Gestionnaire : boolean b
+deactivate Labyrinthe
+
+alt b
+   Gestionnaire -> Robot : avancer()
+   activate Robot
+   Robot --> Gestionnaire
+   deactivate Robot
+end
+
+Gestionnaire -> AlgorithmeLocalisation : setTypeDeplacement(Algorithme.AVANCE)
+activate AlgorithmeLocalisation 
+AlgorithmeLocalisation --> Gestionnaire
+deactivate AlgorithmeLocalisation 
+
+Gestionnaire -> AlgorithmeLocalisation : notify()
+activate AlgorithmeLocalisation #FFBBBB
+note right 
+           On réveille le Thread de l'algorithme de localisation
+           qui est une boucle infinie au début de laquelle on 
+           appelle la méthode wait() et qui, à chaque itération,
+           va mettre à jour les possibilités d'emplacements du
+           robot.
+end note
+
+loop algorithmeCourant.getState() == "WAITING"
+   Gestionnaire -> Gestionnaire
+   note right
+                on attend que l'algorithme ait 
+                 terminé son itération
+   end note
+end
+
+AlgorithmeLocalisation -> AlgorithmeLocalisation : wait()
+note right : l'itération est terminée
+AlgorithmeLocalisation --> Gestionnaire
+deactivate AlgorithmeLocalisation
+
+Gestionnaire -> Gestionnaire : setChanged()
+Gestionnaire -> Gestionnaire : notifyObservers(robot.calculerVision())
+note right : pour la VueAdjacents
+Gestionnaire -> Gestionnaire : notifyObservers(algorithmeCourant.getPositionsPossibles())
+note right : pour la VueLabyrintheLocalisation
+
+Gestionnaire --> ControleurDeplacement
+deactivate Gestionnaire
+deactivate ControleurDeplacement
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+abstract class Observable
+abstract class StratégieGénération{
++générer(Labyrinthe) : void 
+}
+
+class Robot{
+-orientation : int
++avancer() : void
++tournerÀDroite() : void
++tournerÀGauche() : void
++etreSurCase(Case) : boolean
++setLabyrinthe(Labyrinthe) : void
+}
+
+class Labyrinthe{
++Labyrinthe(Robot)
++etreMouvementValide(Case, int) : boolean
++remplirCase(int, int) : void
++viderCase(int, int) : void
++getCase(int, int) : Case
++générer() : void
++setStrat(StratégieGénération) : void
+}
+
+class Coordonnées {
++x : int
++y : int
+}
+
+abstract class Case{
+{abstract} + etreAccessible()
+}
+
+Application --> "1" Labyrinthe : "-laby"
+Application --> "1" Robot : "-robot"
+Observable <|-- Application
+
+Robot --> "1" Labyrinthe
+Labyrinthe --> "1" Robot
+
+Case <|-- CaseVide
+Case <|-- CaseMur
+Coordonnées "1" <-- Case : "-coord"
+
+Labyrinthe --> "1" Case : "-entrée"
+Labyrinthe --> "1" Case : "-sortie"
+Labyrinthe --> "*" Case : "-carte"
+ 
+StratégieGénération "1" <-- Labyrinthe : "-strat"
+StratégieGénération <|-- Vider
+StratégieGénération <|-- Ilot 
+StratégieGénération <|-- Remplir 
+StratégieGénération <|-- Parfait 
+StratégieGénération <|-- Imparfait 
+
+Robot --> "1" Case : "-caseCourante"
+@enduml

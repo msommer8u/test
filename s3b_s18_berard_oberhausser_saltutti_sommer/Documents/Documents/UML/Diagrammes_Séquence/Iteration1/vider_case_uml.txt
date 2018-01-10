@@ -1,0 +1,36 @@
+@startuml
+hide footbox
+
+actor Prof
+
+Prof -> ControleurClic : mousePressed(MouseEvent)
+note left 
+ L'enseignant vide la case 
+ aux coordonnées (1, 1)
+end note
+
+activate ControleurClic
+
+ControleurClic -> Gestionnaire : viderCase(Case(1, 1))
+activate Gestionnaire
+
+
+   
+Gestionnaire -> Labyrinthe : viderCase(Case(1, 1))
+activate Labyrinthe
+
+Labyrinthe -> Case : etreAccessible()
+activate Case
+Case --> Labyrinthe : boolean b
+deactivate Case
+
+alt ! b
+    Labyrinthe -> Labyrinthe : setCaseAt(1, 1, new CaseVide())
+end 
+Labyrinthe --> Gestionnaire
+deactivate Labyrinthe
+
+Gestionnaire --> ControleurClic
+deactivate Gestionnaire
+deactivate ControleurClic
+@enduml

@@ -1,0 +1,22 @@
+abstract Panneau
+
+class Application{
+ + main(String[])
+ + changerLabyrinthe(Labyrinthe)
+}
+
+class Panneau{
+ + changerLabyrinthe(Labyrinthe)
+}
+
+PanneauCreation --|> Panneau
+PanneauLocalisation --|> Panneau
+Panneau --|> JTabbedPane
+
+Application "static" --> "1" Labyrinthe
+Application --|> JFrame
+Menu --|> JMenu
+Application --> "1" Menu
+
+Application --> "1" PanneauCreation
+Application --> "1" PanneauLocalisation

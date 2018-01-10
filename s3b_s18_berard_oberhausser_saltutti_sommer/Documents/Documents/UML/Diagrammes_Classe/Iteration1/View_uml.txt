@@ -1,0 +1,16 @@
+@startuml
+abstract Vue
+interface Observer
+
+Vue <|-- VueLabyrinthe
+Vue <|-- VueAdjacents
+VueLabyrinthe <|-- VueLabyrintheLocalistion
+Observer <|.. Vue
+JPanel <|-- Vue
+
+VueLabyrinthe --> "1" Gestionnaire
+
+class VueAdjacents{
+-vueRobot : int
+}
+@enduml

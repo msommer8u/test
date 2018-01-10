@@ -1,0 +1,24 @@
+abstract Case
+abstract StrategieGeneration
+abstract CheminDecore
+interface Observable
+
+Labyrinthe --> "*" Case
+Chemin --|> Case
+Mur --|> Case
+Pierre --|> CheminDecore
+CheminDecore --> "1" Chemin
+CheminDecore --|> Chemin
+Entree --|> Chemin
+Sortie --|> Chemin
+
+Labyrinthe --|> Observable
+
+Labyrinthe --> "1" Robot
+
+Labyrinthe --> "1" StrategieGeneration
+Vider --|> StrategieGeneration
+Ilot --|> StrategieGeneration
+Remplir --|> StrategieGeneration
+Parfait --|> StrategieGeneration
+Imparfait --|> StrategieGeneration

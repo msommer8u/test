@@ -1,0 +1,61 @@
+abstract Case
+abstract StrategieGeneration
+abstract Vue
+abstract Panneau
+interface Serializable
+interface Observer
+interface Observable
+interface ActionListener
+interface MouseListener
+
+Labyrinthe --> "*" Case
+Chemin --|> Case
+Mur --|> Case
+CheminPierre --|> Chemin
+CheminPierre --> "1" Chemin
+Sortie --|> Chemin
+
+Labyrinthe ..|> Serializable
+Labyrinthe --|> Observable
+
+Labyrinthe --> "1" StrategieGeneration
+Vider --|> StrategieGeneration
+Ilot --|> StrategieGeneration
+Remplir --|> StrategieGeneration
+Parfait --|> StrategieGeneration
+Imparfait --|> StrategieGeneration
+
+Vue3D --|> Vue
+VueCapteurs --|> Vue
+VueLabyrinthe --|> Vue
+VueAdjacents --|> Vue
+Vue ..|> Observer
+Vue --|> JPanel
+
+PanneauCreation --|> Panneau
+PanneauLocalistion --|> Panneau
+Panneau --|> JTabbedPane
+
+Application --> "*" Labyrinthe
+Application --|> JFrame
+Menu --|> JMenu
+Application --> "1" Menu
+
+ControleurGeneration ..|> ActionListener
+ControleurTaille ..|> ActionListener
+ControleurMode ..|> ActionListener
+ControleurDeplacement ..|> ActionListener
+ControleurExecution ..|> ActionListener
+ControleurChoixLabyrinthe ..|> ActionListener
+ControleurAffichageVues ..|> ActionListener
+ControleurClic ..|> MouseListener
+
+ControleurGeneration --> "1" Labyrinthe
+ControleurTaille  --> "1" Labyrinthe
+ControleurMode  --> "1" Labyrinthe
+ControleurDeplacement  --> "1" Labyrinthe
+ControleurExecution  --> "1" Labyrinthe
+ControleurChoixLabyrinthe  --> "1" Labyrinthe
+ControleurAffichageVues  --> "1" Labyrinthe
+ControleurClic  --> "1" Labyrinthe
+

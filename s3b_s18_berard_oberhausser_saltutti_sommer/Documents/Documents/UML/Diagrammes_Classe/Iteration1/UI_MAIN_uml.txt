@@ -1,0 +1,18 @@
+@startuml
+abstract Panneau
+
+class Fenetre{
+ + main(String[])
+}
+
+Panneau <|-- PanneauCreation
+Panneau <|-- PanneauLocalisation
+JTabbedPane <|-- Panneau
+
+JFrame <|-- Fenetre
+JMenu <|-- Menu
+Fenetre --> "1" Menu
+
+Fenetre --> "1" PanneauCreation
+Fenetre --> "1" PanneauLocalisation
+@enduml

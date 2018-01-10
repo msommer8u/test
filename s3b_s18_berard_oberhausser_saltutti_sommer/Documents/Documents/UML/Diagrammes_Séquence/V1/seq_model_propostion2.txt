@@ -1,0 +1,47 @@
+@startuml
+hide footbox
+
+actor Prof
+
+activate Prof
+
+Prof -> ControleurClic : mousePressed(MouseEvent)
+activate ControleurClic
+
+ControleurClic -> Gestionnaire : viderCase(1, 1)
+activate Gestionnaire
+
+Gestionnaire -> Labyrinthe : viderCase(1, 1)
+activate Labyrinthe
+
+Labyrinthe -> Labyrinthe : getCase(1, 1)
+
+Labyrinthe -> Gestionnaire : etreSurCase(Case(1, 1))
+activate Gestionnaire
+
+Gestionnaire -> Robot : etreSurCase(Case(1, 1))
+activate Robot
+
+Robot --> Gestionnaire : b : boolean
+deactivate Robot
+
+Gestionnaire --> Labyrinthe : b2 : boolean
+deactivate Gestionnaire
+
+Labyrinthe --> Gestionnaire
+deactivate Labyrinthe
+
+Gestionnaire -> VueLabyrinthe : update(Obsarvable, Object)
+activate VueLabyrinthe
+
+VueLabyrinthe --> Gestionnaire
+deactivate VueLabyrinthe
+
+Gestionnaire --> ControleurClic
+deactivate Gestionnaire
+
+ControleurClic --> Prof
+deactivate ControleurClic
+
+deactivate Prof
+@enduml

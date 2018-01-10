@@ -1,0 +1,30 @@
+@startuml
+interface ActionListener
+interface KeyListener
+interface ComponentListener
+
+class VueAdjacents{
+-vueRobot : int
+}
+
+PanneauLocalisation --> "1" VueLabyrintheLocalisation
+PanneauLocalisation -right-> "1" VueAdjacents
+
+VueLabyrintheLocalisation --> "1" Gestionnaire
+
+PanneauLocalisation --> "1" ControleurDeplacement
+PanneauLocalisation --> "1" ControleurAffichageVues
+PanneauLocalisation --> "1" ControleurExecution
+PanneauLocalisation --> "1" ControleurEchelle
+
+ActionListener <|.. ControleurDeplacement
+KeyListener <|.. ControleurDeplacement
+ActionListener <|.. ControleurAffichageVues
+ActionListener <|.. ControleurExecution
+ComponentListener <|.. ControleurEchelle
+
+ControleurDeplacement --> "1" Gestionnaire
+ControleurAffichageVues  --> "1" Gestionnaire
+ControleurExecution  --> "1" Gestionnaire
+ControleurEchelle --> "1" Gestionnaire
+@enduml

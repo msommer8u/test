@@ -1,0 +1,108 @@
+@startuml
+abstract class Observable
+interface Runnable{
++run() : void
+}
+
+class AlgoLocalisation{
++AVANCE : int 
++TOURNE_GAUCHE : int 
++TOURNE_DROITE : int 
+-typeDeplacement : int
+
++setTypeDeplacement(int) : void
+}
+
+abstract class Algorithme{
++Algorithme(Gestionnaire)
+}
+
+class Position{
++orientation : int
+}
+
+abstract class FabriqueLabyrinthe{
+{abstract} +fabriquerLabyrinthe() : Labyrinthe
+}
+
+class Gestionnaire{
+-afficherRobot : boolean
+
++setLabyrinthe(Labyrinthe) : void
++setRobot(Robot) : void
++changerTailleLaby(int, int) : void
++creerCaseVide(Case) : void
++creerCaseMur(Case) : void
++creerCaseSortie(Case) : void
++creerCaseEntree(Case) : void
++placerRobot() : void
++avancerRobot() : void
++tournerADroiteRobot() : void
++tournerADroiteRobot() : void
++changerFabrique(FabriqueLabyrinthe) : void
++setAlgorithme(Algorithme) : void
+}
+
+class Robot{
+-orientation : int
++Robot(Gestionnaire)
++avancer() : void
++tournerÀDroite() : void
++tournerÀGauche() : void
++etreSurCase(Case) : boolean
+}
+
+class Labyrinthe{
++Labyrinthe(Gestionnaire)
++viderCase(Case) : void
++positionnerEntree(Case) : void
++positionnerSortie(Case) : void
++etreMurExterieur(Case) : boolean
++remplirCase(int, int) : void
++etreMouvementValide(Case, int) : boolean
++getEntree() : Case
++getSortie() : Case
+}
+
+class Coordonnées {
++x : int
++y : int
+}
+
+abstract class Case{
++Case(Coordonnees)
+{abstract} +etreAccessible()
+}
+
+Gestionnaire --> "1" Labyrinthe : "-laby"
+Gestionnaire --> "1" Robot : "-robot"
+Gestionnaire --> "1" FabriqueLabyrinthe : "-fabrique" 
+Gestionnaire -right-> "1" Algorithme : "-algoCourant" 
+
+Observable <|-- Gestionnaire
+Robot --> "1" Gestionnaire : "-gestionnaire"
+Labyrinthe --> "1" Gestionnaire : "-gestionnaire"
+
+Case <|-- CaseVide
+Case <|-- CaseMur
+Coordonnées "1" <-right- Case : "-coord"
+
+Labyrinthe --> "1" Case : "-entrée"
+Labyrinthe --> "1" Case : "-sortie"
+Labyrinthe --> "*" Case : "-carte"
+ 
+FabriqueLabyrinthe <|-left- FabriqueLabyrintheVide
+FabriqueLabyrinthe <|-- FabriqueLabyrintheIlot
+FabriqueLabyrinthe <|-- FabriqueLabyrintheParfait
+FabriqueLabyrinthe <|-- FabriqueLabyrintheImparfait 
+
+Robot --> "1" Case : "-caseCourante"
+
+Runnable <|.. Algorithme
+Algorithme --> "1" Gestionnaire : "-gestionnaire"
+
+Algorithme <|-- AlgoLocalisation
+
+AlgoLocalisation --> "*" Position : "-posPossibles"
+Position --> "1" Case : "-case"
+@enduml

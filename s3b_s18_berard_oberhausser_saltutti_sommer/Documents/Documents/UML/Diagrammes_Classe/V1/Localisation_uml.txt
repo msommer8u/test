@@ -1,0 +1,29 @@
+interface ActionListener
+interface KeyListener
+interface ComponentListener
+
+PanneauLocalisation --> "1" VueLabyrinthe
+PanneauLocalisation --> "1" Vue3D
+PanneauLocalisation --> "1" VueCapteurs
+PanneauLocalisation --> "1" VueAdjacents
+
+VueLabyrinthe --> "1" Labyrinthe
+Vue3D --> "1" Labyrinthe
+VueCapteurs --> "1" Labyrinthe
+VueAdjacents --> "1" Labyrinthe
+
+PanneauLocalisation --> "1" ControleurDeplacement
+PanneauLocalisation --> "1" ControleurAffichageVues
+PanneauLocalisation --> "1" ControleurExecution
+PanneauLocalisation --> "1" ControleurEchelle
+
+ControleurDeplacement ..|> ActionListener
+ControleurDeplacement ..|> KeyListener
+ControleurAffichageVues ..|> ActionListener
+ControleurExecution ..|> ActionListener
+ControleurEchelle ..|> ComponentListener
+
+ControleurDeplacement --> "1" Labyrinthe
+ControleurAffichageVues  --> "1" Labyrinthe
+ControleurExecution  --> "1" Labyrinthe
+ControleurEchelle --> "1" Labyrinthe

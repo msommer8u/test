@@ -1,0 +1,35 @@
+@startuml
+hide footbox
+
+actor Prof
+
+activate Prof
+
+Prof -> ControleurClic : mousePressed(MouseEvent)
+activate ControleurClic
+
+ControleurClic -> Application : getLaby()
+activate Application
+
+Application --> ControleurClic : l : Labyrinthe
+deactivate Application
+
+ControleurClic -> Labyrinthe : l.viderCase(1, 1)
+activate Labyrinthe
+
+Labyrinthe -> Labyrinthe : getCase(1, 1)
+
+Labyrinthe -> Robot : robot.etreSurCase(Case(1, 1))
+activate Robot
+
+Robot --> Labyrinthe : b : boolean
+deactivate Robot
+
+Labyrinthe --> ControleurClic
+deactivate Labyrinthe
+
+ControleurClic --> Prof
+deactivate ControleurClic
+
+deactivate Prof
+@enduml
